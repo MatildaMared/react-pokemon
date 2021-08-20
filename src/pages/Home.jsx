@@ -6,6 +6,28 @@ import "./Home.scss";
 function Home() {
 	const [pokemon, setPokemon] = useState(null);
 	const [filteredPokemon, setFilteredPokemon] = useState(null);
+	const [favorites, setFavorites] = useState([]);
+
+	//FORTSÄTT HÄR :D Skapa "visa bara favoriter"-knapp
+	const [showOnlyFavorites, setShowOnlyFavorites] = useState(false);
+
+	const toggleFavorite = (e) => {
+		e.stopPropagation();
+		const id = e.target.dataset.id;
+
+		// If pokemon ID is already in the favorites list, remove it
+		if (favorites.includes(id)) {
+			setFavorites((prevState) => {
+				return prevState.filter((item) => item !== id);
+			});
+
+			// If the pokemon ID is not in the favorites list, add it
+		} else {
+			setFavorites((prevState) => {
+				return [...prevState, id];
+			});
+		}
+	};
 
 	const fetchPokemon = async () => {
 		const response = await fetch("pokemon.json");
@@ -21,7 +43,6 @@ function Home() {
 				return character.name.toLowerCase().includes(input.toLowerCase());
 			})
 		);
-		console.log(filteredPokemon);
 	};
 
 	useEffect(() => {
@@ -33,7 +54,11 @@ function Home() {
 			{pokemon && filteredPokemon ? (
 				<>
 					<SearchBar filterPokemon={filterPokemon} pokemon={pokemon} />
-					<PokemonList pokemon={filteredPokemon} />
+					<PokemonList
+						pokemon={filteredPokemon}
+						toggleFavorite={toggleFavorite}
+						favorites={favorites}
+					/>
 				</>
 			) : (
 				<p className="home__loading">Loading...</p>

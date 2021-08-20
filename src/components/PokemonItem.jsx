@@ -12,10 +12,18 @@ function PokemonItem({ id, name, image, type }) {
 
 	return (
 		<article className="pokemon-item" onClick={redirectToDetailsPage}>
-      <div className="pokemon-item__info">
-        <h2 className="pokemon-item__number">{pokeNumber}</h2>
+			<div className="pokemon-item__info">
+				<div className="pokemon-item__num-icon-wrapper">
+					<h2 className="pokemon-item__number">{pokeNumber}</h2>
+					<i class="bx bx-heart pokemon-item__icon"></i>
+				</div>
 				<h1 className="pokemon-item__name">{name}</h1>
-				<p className="pokemon-item__type">{type.map((type) => type + " ")}</p>
+				{type.map((type) => (
+					<p
+						className={`pokemon-item__type pokemon-item__type--${type.toLowerCase()}`}>
+						{type}
+					</p>
+				))}
 			</div>
 			<img className="pokemon-item__image" src={image.thumbnail} alt="" />
 		</article>

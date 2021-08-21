@@ -3,7 +3,7 @@ import "./PokemonDetailItem.scss";
 
 function PokemonDetailItem({ pokemon }) {
 	console.log(pokemon);
-	const { name, types, sprites, id } = pokemon;
+	const { name, types, id } = pokemon;
 	const pokeNumber = "#" + id.toString().padStart(3, 0);
 
 	return (
@@ -17,6 +17,9 @@ function PokemonDetailItem({ pokemon }) {
 			<h1 className="pokemon-detail-item__name">
 				{name.slice(0, 1).toUpperCase() + name.slice(1)}
 			</h1>
+			{types.map(({type}) => (
+				<p key={type.name} className={`type type--${type.name}`}>{type.name}</p>
+			))}
 		</article>
 	);
 }

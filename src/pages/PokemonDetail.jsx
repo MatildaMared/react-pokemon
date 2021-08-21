@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "./PokemonDetail.scss";
 import { useParams, useHistory } from "react-router-dom";
 import PokemonDetailItem from "../components/PokemonDetailItem";
-import { PokemonContext } from "../PokemonContext";
 
 function PokemonDetail() {
-	const { context, updateContext } = useContext(PokemonContext);
 	const [pokemon, setPokemon] = useState(null);
 	const [error, setError] = useState(false);
 	const { id } = useParams();
@@ -24,18 +22,7 @@ function PokemonDetail() {
 
 	useEffect(() => {
 		fetchPokemon();
-		// if (context.pokemon) {
-		// 	setPokemon(context.pokemon[id - 1]);
-		// }
 	}, []);
-
-	// useEffect(() => {
-	// 	if (!pokemon) {
-	// 		setError(true);
-	// 	} else {
-	// 		setError(false);
-	// 	}
-	// }, [pokemon]);
 
 	return (
 		<main className="pokemon-detail">

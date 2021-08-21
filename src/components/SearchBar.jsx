@@ -25,7 +25,10 @@ function SearchBar() {
 	};
 
 	useEffect(() => {
-		filterPokemon(input);
+		// filterPokemon(input);
+		updateContext({
+			filterString: input,
+		});
 	}, [input]);
 
 	return (

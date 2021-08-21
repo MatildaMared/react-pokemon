@@ -13,7 +13,6 @@ function PokemonDetail() {
 		try {
 			const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
 			const data = await response.json();
-			console.log(data);
 			setPokemon(data);
 		} catch (err) {
 			setError(true);

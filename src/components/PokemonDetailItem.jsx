@@ -1,8 +1,9 @@
 import React from "react";
 import "./PokemonDetailItem.scss";
 
-function PokemonDetailItem(pokemon) {
-	const { name, image, type, id } = pokemon.pokemon;
+function PokemonDetailItem({ pokemon }) {
+	console.log(pokemon);
+	const { name, types, sprites, id } = pokemon;
 	const pokeNumber = "#" + id.toString().padStart(3, 0);
 
 	return (
@@ -10,10 +11,12 @@ function PokemonDetailItem(pokemon) {
 			<h2 className="pokemon-detail-item__number">{pokeNumber}</h2>
 			<img
 				className="pokemon-detail-item__image"
-				src={image.url}
+				src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
 				alt="Pokemon illustration"
 			/>
-			<h1 className="pokemon-detail-item__name">{name}</h1>
+			<h1 className="pokemon-detail-item__name">
+				{name.slice(0, 1).toUpperCase() + name.slice(1)}
+			</h1>
 		</article>
 	);
 }

@@ -1,12 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { PokemonContext } from "../PokemonContext";
 import "./SearchBar.scss";
 
-function SearchBar({ filterPokemon, pokemon }) {
+function SearchBar() {
+	const { context, updateContext } = useContext(PokemonContext);
 	const [input, setInput] = useState("");
 
 	const handleInput = (e) => {
 		setInput(e.target.value);
-		console.log(input);
+	};
+
+	const filterPokemon = (input) => {
+		if (input.length === 0) {
+			updateContext({
+				filteredPokemon: context.pokemon,
+			});
+		} else {
+			updateContext({
+				filteredPokemon: context.pokemon.filter((character) => {
+					return character.name.toLowerCase().includes(input.toLowerCase());
+				}),
+			});
+		}
 	};
 
 	useEffect(() => {

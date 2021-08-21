@@ -1,11 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Link,
-	useHistory,
-} from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import pikachu from "./assets/pikachu.svg";
 import "./App.scss";
 

@@ -1,8 +1,9 @@
 .footer {
-  &__copyright {
-    color: rgba(255, 255, 255, .6);
-    font-weight: 200;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
+	margin-top: 1rem;
+	&__copyright {
+		color: rgba(255, 255, 255, 0.6);
+		font-weight: 200;
+		text-align: center;
+		margin-bottom: 1rem;
+	}
 }

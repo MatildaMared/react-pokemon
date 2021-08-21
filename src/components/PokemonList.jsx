@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import { PokemonContext } from "../PokemonContext";
 import PokemonItem from "./PokemonItem";
 import "./PokemonList.scss";
 
-function PokemonList({ pokemon, toggleFavorite, favorites }) {
+function PokemonList() {
+	const { context } = useContext(PokemonContext);
+
 	return (
 		<section className="pokemon-list">
-			{pokemon.map((character) => (
-				<PokemonItem key={character.id} {...character} toggleFavorite={toggleFavorite} favorites={favorites} />
+			{context.filteredPokemon.map((character) => (
+				<PokemonItem key={character.id} {...character} />
 			))}
 		</section>
 	);

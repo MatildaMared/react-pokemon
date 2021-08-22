@@ -3,7 +3,7 @@ import { PokemonContext } from "../PokemonContext";
 import "./SearchBar.scss";
 
 function SearchBar() {
-	const { updateContext } = useContext(PokemonContext);
+	const { context, updateContext } = useContext(PokemonContext);
 	const [input, setInput] = useState("");
 
 	const handleInput = (e) => {
@@ -15,6 +15,10 @@ function SearchBar() {
 			filterString: input,
 		});
 	}, [input]);
+
+	useEffect(() => {
+		setInput("");
+	}, [context.activeGeneration]);
 
 	return (
 		<section className="search-bar">

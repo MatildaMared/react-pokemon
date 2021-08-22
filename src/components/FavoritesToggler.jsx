@@ -3,8 +3,8 @@ import { PokemonContext } from "../PokemonContext";
 import "./FavoritesToggler.scss";
 
 function FavoritesToggler() {
-	const { updateContext } = useContext(PokemonContext);
-	const [isChecked, setIsChecked] = useState(false);
+	const { context, updateContext } = useContext(PokemonContext);
+	const [isChecked, setIsChecked] = useState(context.showOnlyFavorites);
 	const onChangeHandler = (e) => {
 		setIsChecked((previousVal) => {
 			return !previousVal;
@@ -21,7 +21,7 @@ function FavoritesToggler() {
 		<section className="favorites-toggler">
 			<label className="favorites-toggler__label">
 				Show only favorites
-				<input type="checkbox" checked={isChecked} onChange={onChangeHandler} />
+				<input type="checkbox" checked={context.showOnlyFavorites} onChange={onChangeHandler} />
 				<span className="favorites-toggler__checkmark"></span>
 			</label>
 		</section>

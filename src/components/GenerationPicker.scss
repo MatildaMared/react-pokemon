@@ -4,9 +4,8 @@
 	margin-bottom: 2rem;
 	font-size: 1.4rem;
 	font-weight: 200;
-	// color: #40345a;
-	color: rgba(255, 255, 255, 0.7);
-	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	color: rgba(255, 255, 255, 0.8);
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 
 	&__active {
 		position: relative;
@@ -16,18 +15,25 @@
 		box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
 		margin-bottom: 1rem;
 		cursor: pointer;
+		transition: all 0.25s;
 
 		&:hover {
-			background-color: rgba(255, 255, 255, 0.2);
+			background-color: rgba(255, 255, 255, 0.6);
 		}
 	}
 
 	&__list {
-		background-color: rgba(255, 255, 255, 0.2);
+		background-color: rgb(175, 175, 175);
 		border-radius: 1rem;
 		opacity: 1;
 		transition: all 0.3s;
 		overflow: hidden;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		position: absolute;
+		z-index: 100;
+		width: 70%;
+		max-width: 30rem;
+		box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
 
 		&--hide {
 			display: none;
@@ -38,11 +44,12 @@
 	&__item {
 		position: relative;
 		padding: 1rem 2rem;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.6);
 		cursor: pointer;
+		transition: all 0.25s;
 
 		&:hover {
-			background-color: rgba(255, 255, 255, 0.4);
+			background-color: rgba(255, 255, 255, 0.8);
 		}
 
 		&:last-of-type {
@@ -155,13 +162,13 @@
 	}
 
 	&-7 {
-		background: rgb(236, 211, 123);
+		background: rgb(236, 211, 123, 0.7);
 		background: linear-gradient(
 			146deg,
-			rgba(236, 211, 123, 1) 0%,
-			rgba(207, 186, 110, 1) 25%,
-			rgba(139, 164, 214, 1) 75%,
-			rgba(139, 164, 214, 1) 100%
+			rgba(236, 211, 123, 0.7) 0%,
+			rgba(207, 186, 110, 0.7) 25%,
+			rgba(139, 164, 214, 0.7) 75%,
+			rgba(139, 164, 214, 0.7) 100%
 		);
 
 		&::after {

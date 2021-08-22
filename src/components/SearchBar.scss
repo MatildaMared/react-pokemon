@@ -1,7 +1,9 @@
 .search-bar {
 	width: 100%;
-	margin-left: 2rem;
+	max-width: 35rem;
 	margin-bottom: 2rem;
+	margin-right: 2rem;
+	// padding: 0 2rem;
 
 	&__input {
 		display: block;

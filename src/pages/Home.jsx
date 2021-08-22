@@ -9,8 +9,10 @@ function Home() {
 
 	return (
 		<main className="home">
+			<div className="home__gen-search-wrapper">
 			<SearchBar />
 			<GenerationPicker />
+			</div>
 			<FavoritesToggler />
 			<PokemonList />
 		</main>

@@ -1,5 +1,15 @@
 .home {
-  @media (min-width: 1350px) {
-    margin-left: 6rem;
-  }
+	@media (min-width: 1350px) {
+		margin-left: 6rem;
+	}
+
+	&__gen-search-wrapper {
+		max-width: 1200px;
+		position: relative;
+		@media (min-width: 1250px) {
+			display: flex;
+      justify-content: flex-start;
+      margin-bottom: -1rem;
+		}
+	}
 }

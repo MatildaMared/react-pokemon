@@ -137,6 +137,8 @@ export const PokemonProvider = ({ children }) => {
 		}
 	}, [context.sortByFavorites, context.favorites, context.filterString]);
 
+	// Each time the favorites array changes, save the array to localStorage to
+	// keep the favorites stored even though the user refreshes the page
 	useEffect(() => {
 		localStorage.removeItem("favorites");
 		localStorage.setItem("favorites", JSON.stringify(context.favorites));

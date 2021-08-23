@@ -1,0 +1,222 @@
+.type-filter {
+	margin-bottom: 2rem;
+	width: 100%;
+	max-width: 35rem;
+	font-weight: 300;
+	display: block;
+
+	&__header {
+		background-color: rgba(255, 255, 255, 0.8);
+		cursor: pointer;
+		margin-bottom: 1rem;
+		font-size: 1.4rem;
+		border-radius: 1rem;
+		padding: 1rem 2rem;
+		position: relative;
+		color: #40345a;
+		background-image: linear-gradient(
+			to bottom right,
+			rgba(120, 99, 255, 0.8),
+			rgb(128, 100, 247, 0.8),
+			rgb(136, 100, 239, 0.8),
+			rgb(143, 101, 231, 0.8),
+			rgb(151, 102, 223, 0.8),
+			rgb(159, 103, 215, 0.8),
+			rgb(167, 103, 208, 0.8),
+			rgb(175, 104, 200, 0.8),
+			rgb(183, 105, 192, 0.8),
+			rgb(190, 106, 184, 0.8),
+			rgb(198, 106, 176, 0.8),
+			rgb(206, 107, 168, 0.8)
+		);
+
+		background-repeat: no-repeat;
+		box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
+		backdrop-filter: blur(5px);
+		-webkit-backdrop-filter: blur(5px);
+		overflow: hidden;
+		color: rgba(255, 255, 255, 0.7);
+		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	}
+
+	&__types {
+		position: absolute;
+		right: 2rem;
+		top: 50%;
+		transform: translateY(-50%);
+		font-size: 1rem;
+		text-transform: uppercase;
+	}
+
+	&__list {
+		position: absolute;
+		z-index: 100;
+		border-radius: 1rem;
+		max-width: 26rem;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		background-color: rgba(255, 255, 255, 0.4);
+		grid-gap: 1px;
+		box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
+		backdrop-filter: blur(5px);
+		-webkit-backdrop-filter: blur(5px);
+		overflow: hidden;
+		color: rgba(255, 255, 255, 0.8);
+		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+		&--hide {
+			display: none;
+		}
+	}
+
+	&__item {
+		text-transform: uppercase;
+		padding: 0.75rem 1.5rem;
+		transition: all 0.3s;
+		cursor: pointer;
+		background-color: #9065e6cc;
+		text-align: center;
+
+		&:first-child {
+			grid-column: 1 / span 3;
+			text-align: left;
+
+			&:hover {
+				background-color: #9065e677;
+			}
+		}
+
+		&:last-child {
+			grid-column: 1 / span 3;
+			&:hover {
+				background-color: #9065e677;
+			}
+		}
+
+		&--normal {
+			&:hover,
+			&.active {
+				background-color: #a8a878be;
+			}
+		}
+
+		&--grass {
+			&:hover,
+			&.active {
+				background-color: #78c850b4;
+			}
+		}
+
+		&--fire {
+			&:hover,
+			&.active {
+				background-color: #f08030bb;
+			}
+		}
+
+		&--poison {
+			&:hover,
+			&.active {
+				background-color: #a040a0b9;
+			}
+		}
+
+		&--water {
+			&:hover,
+			&.active {
+				background-color: #6891f0b9;
+			}
+		}
+
+		&--electric {
+			&:hover,
+			&.active {
+				background-color: #f8d030c0;
+			}
+		}
+
+		&--ice {
+			&:hover,
+			&.active {
+				background-color: #98d8d8b4;
+			}
+		}
+
+		&--ground {
+			&:hover,
+			&.active {
+				background-color: #e0c068b9;
+			}
+		}
+
+		&--flying {
+			&:hover,
+			&.active {
+				background-color: #a890f0c0;
+			}
+		}
+
+		&--fighting {
+			&:hover,
+			&.active {
+				background-color: #c03028b9;
+			}
+		}
+
+		&--psychic {
+			&:hover,
+			&.active {
+				background-color: #f85888bb;
+			}
+		}
+
+		&--dark {
+			&:hover,
+			&.active {
+				background-color: #705848bb;
+			}
+		}
+
+		&--rock {
+			&:hover,
+			&.active {
+				background-color: #b8a138bd;
+			}
+		}
+
+		&--bug {
+			&:hover,
+			&.active {
+				background-color: #a9b820b9;
+			}
+		}
+
+		&--ghost {
+			&:hover,
+			&.active {
+				background-color: #715898bd;
+			}
+		}
+
+		&--steel {
+			&:hover,
+			&.active {
+				background-color: #b8b8d0bb;
+			}
+		}
+
+		&--dragon {
+			&:hover,
+			&.active {
+				background-color: #7238f8b6;
+			}
+		}
+
+		&--fairy {
+			&:hover,
+			&.active {
+				background-color: #ffaec9c9;
+			}
+		}
+	}
+}

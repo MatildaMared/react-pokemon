@@ -1,4 +1,5 @@
 import React from "react";
+import BackToTopBtn from '../components/BackToTopBtn';
 import FavoritesToggler from '../components/FavoritesToggler';
 import GenerationPicker from '../components/GenerationPicker';
 import PokemonList from "../components/PokemonList";
@@ -10,11 +11,12 @@ function Home() {
 	return (
 		<main className="home">
 			<div className="home__gen-search-wrapper">
-			<SearchBar />
-			<GenerationPicker />
+				<SearchBar />
+				<GenerationPicker />
 			</div>
 			<FavoritesToggler />
 			<PokemonList />
+			<BackToTopBtn />
 		</main>
 	);
 }

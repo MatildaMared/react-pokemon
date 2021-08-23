@@ -11,7 +11,7 @@ function Home() {
 	return (
 		<main className="home">
 			<SearchBar />
-			<div className="home__gen-search-wrapper">
+			<div className="home__gen-type-wrapper">
 				<GenerationPicker />
 				<TypeFilter />
 			</div>

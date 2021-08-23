@@ -5,7 +5,7 @@ import { PokemonContext } from "../PokemonContext";
 
 function TypeFilter() {
 	const { context, updateContext } = useContext(PokemonContext);
-	const [typeFilter, setTypeFilter] = useState([]);
+	const [typeFilter, setTypeFilter] = useState(context.typeFilter);
 	const [showDropdown, setShowDropdown] = useState(false);
 	const availableTypes = [
 		"Grass",

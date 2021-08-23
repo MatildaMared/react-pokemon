@@ -77,16 +77,24 @@ export const PokemonProvider = ({ children }) => {
 
 		// If sortByFavorites is true, sort the filteredPokemon array based
 		// on user favorites
-		if (context.sortByFavorites) {
+		if (context.sortByFavorites && context.typeFilter.length === 0) {
 			updateContext({
 				pokemon: currentPokemon,
-				filteredPokemon: currentPokemon.filter((character) => {
-					return context.favorites.includes(character.id.toString());
-				}),
+				filteredPokemon: sortByFavorites(currentPokemon),
 				filterString: "",
 			});
 			// Else set both pokemon and filteredPokemon to the new array based
 			// on the generation chosen by the user
+		} else if (context.sortByFavorites && context.typeFilter.length > 0) {
+			updateContext({
+				pokemon: currentPokemon,
+				filteredPokemon: sortByFavorites(sortByType(currentPokemon)),
+			});
+		} else if (!context.sortByFavorites && context.typeFilter.length > 0) {
+			updateContext({
+				pokemon: currentPokemon,
+				filteredPokemon: sortByType(currentPokemon),
+			});
 		} else {
 			updateContext({
 				pokemon: currentPokemon,

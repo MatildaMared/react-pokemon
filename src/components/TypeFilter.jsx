@@ -47,13 +47,13 @@ function TypeFilter() {
 				return [...oldVal, e.target.innerText];
 			});
 		}
-  };
-  
-  const onResetClickHandler = () => {
-    setShowDropdown(false);
-    setTypeFilter([]);
-    setTypeString("Show all types");
-  }
+	};
+
+	const onResetClickHandler = () => {
+		setShowDropdown(false);
+		setTypeFilter([]);
+		setTypeString("Show all types");
+	};
 
 	useEffect(() => {
 		console.log(typeFilter);
@@ -68,6 +68,9 @@ function TypeFilter() {
 				`${typeFilter[0]}, ${typeFilter[1]} & ${typeFilter.length - 2} more`
 			);
 		}
+		updateContext({
+			typeFilter: typeFilter,
+		});
 	}, [typeFilter]);
 
 	return (
@@ -82,16 +85,26 @@ function TypeFilter() {
 						? "type-filter__list"
 						: "type-filter__list type-filter__list--hide"
 				}>
-				<li className="type-filter__item" onClick={onResetClickHandler}>Show all types</li>
+				<li className="type-filter__item" onClick={onResetClickHandler}>
+					Show all types
+				</li>
 				{availableTypes.map((type) => (
 					<li
 						key={type}
 						onClick={onTypeClickHandler}
-						className={`type-filter__item type-filter__item--${type.toLowerCase()} ${typeFilter.includes(type.toUpperCase()) && "active"}`}>
+						className={`type-filter__item type-filter__item--${type.toLowerCase()} ${
+							typeFilter.includes(type.toUpperCase()) && "active"
+						}`}>
 						{type}
-          </li>
+					</li>
 				))}
-        <li className="type-filter__item" onClick={() => {setShowDropdown(false)}}>Close menu</li>
+				<li
+					className="type-filter__item"
+					onClick={() => {
+						setShowDropdown(false);
+					}}>
+					Close menu
+				</li>
 			</ul>
 		</div>
 	);

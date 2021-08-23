@@ -10,6 +10,7 @@ export const PokemonProvider = ({ children }) => {
 		favorites: JSON.parse(localStorage.getItem("favorites")) || [],
 		sortByFavorites: false,
 		filterString: "",
+		typeFilter: [],
 		generations: [
 			{
 				name: "Generation I",
@@ -96,9 +97,93 @@ export const PokemonProvider = ({ children }) => {
 	}, [context.activeGeneration]);
 
 	useEffect(() => {
-		// If sortByFavorites is false and filterString length is more than 0,
-		// sort filteredPokemon array by the filterString only
-		if (!context.sortByFavorites && context.filterString.length > 0) {
+		// If sortByFavorites is false, filterString length is 0 but
+		// typeFilter is not empty, sort filteredPokemon by typeFilter
+		// only
+		if (
+			!context.sortByFavorites &&
+			context.filterString.length === 0 &&
+			context.typeFilter.length > 0
+		) {
+			const newFiltered = context.pokemon.filter((character) => {
+				const upperCaseArr = character.type.map((type) => type.toUpperCase());
+				console.log(upperCaseArr);
+				return upperCaseArr.some((val) => context.typeFilter.includes(val));
+			});
+			updateContext({
+				filteredPokemon: newFiltered,
+			});
+			// If sortByFavorites is true, filterString length is 0 and typeFilter
+			// is not empty, sort filteredPokemon by both typeFilter and
+			// favorites
+		} else if (
+			context.sortByFavorites &&
+			context.filterString.length === 0 &&
+			context.typeFilter.length > 0
+		) {
+			const newFiltered = context.pokemon.filter((character) => {
+				const upperCaseArr = character.type.map((type) => type.toUpperCase());
+				console.log(upperCaseArr);
+				return upperCaseArr.some((val) => context.typeFilter.includes(val));
+			});
+			updateContext({
+				filteredPokemon: newFiltered.filter((character) => {
+					return context.favorites.includes(character.id.toString());
+				}),
+			});
+			// If sortByFavorites is false, but filterString length is more
+			// than 0 and typeFilter length is more than 0, sort filteredPokemon
+			// based on typeFilter and filterString
+		} else if (
+			!context.sortByFavorites &&
+			context.filterString.length > 0 &&
+			context.typeFilter.length > 0
+		) {
+			let newFiltered = context.pokemon.filter((character) => {
+				const upperCaseArr = character.type.map((type) => type.toUpperCase());
+				console.log(upperCaseArr);
+				return upperCaseArr.some((val) => context.typeFilter.includes(val));
+			});
+			updateContext({
+				filteredPokemon: newFiltered.filter((character) => {
+					return character.name
+						.toLowerCase()
+						.includes(context.filterString.toLowerCase());
+				}),
+			});
+			// If sortByFavorites is true, filterString length is more than 0
+			// and typeFilter length is more than 0, sort filteredPokemon
+			// based on all three
+		} else if (
+			context.sortByFavorites &&
+			context.filterString.length > 0 &&
+			context.typeFilter.length > 0
+		) {
+			let newFiltered = context.pokemon.filter((character) => {
+				const upperCaseArr = character.type.map((type) => type.toUpperCase());
+				console.log(upperCaseArr);
+				return upperCaseArr.some((val) => context.typeFilter.includes(val));
+			});
+			newFiltered = newFiltered.filter((character) => {
+				return character.name
+					.toLowerCase()
+					.includes(context.filterString.toLowerCase());
+			});
+			updateContext({
+				filteredPokemon: newFiltered.filter((character) => {
+					return character.name
+						.toLowerCase()
+						.includes(context.filterString.toLowerCase());
+				}),
+			});
+			// If sortByFavorites is false, typeFilter length is 0,
+			// and filterString length is more than 0,
+			// sort filteredPokemon array by the filterString only
+		} else if (
+			!context.sortByFavorites &&
+			context.filterString.length > 0 &&
+			context.typeFilter.length === 0
+		) {
 			updateContext({
 				filteredPokemon: context.pokemon.filter((character) => {
 					return character.name
@@ -106,17 +191,27 @@ export const PokemonProvider = ({ children }) => {
 						.includes(context.filterString.toLowerCase());
 				}),
 			});
-			// If sortByFavorites is true but the length of filterString is 0,
+			// If sortByFavorites is true, typeFilter length is 0
+			// and length of filterString is 0,
 			// sort filteredPokemon array only based on user favorites
-		} else if (context.sortByFavorites && context.filterString.length === 0) {
+		} else if (
+			context.sortByFavorites &&
+			context.filterString.length === 0 &&
+			context.typeFilter.length === 0
+		) {
 			updateContext({
 				filteredPokemon: context.pokemon.filter((character) => {
 					return context.favorites.includes(character.id.toString());
 				}),
 			});
-			// If sortByFavorites is true AND the length of filterString is more than 0,
-			// sort filteredPokemon array BOTH based on user favorites and the filterString
-		} else if (context.sortByFavorites && context.filterString.length > 0) {
+			// If sortByFavorites is true, typeFilter length is 0
+			// and the length of filterString is more than 0,
+			// sort filteredPokemon array based on user favorites and the filterString
+		} else if (
+			context.sortByFavorites &&
+			context.filterString.length > 0 &&
+			context.typeFilter === 0
+		) {
 			let newFilteredPokemon = context.pokemon.filter((character) => {
 				return (
 					character.name
@@ -135,7 +230,12 @@ export const PokemonProvider = ({ children }) => {
 				filteredPokemon: context.pokemon,
 			});
 		}
-	}, [context.sortByFavorites, context.favorites, context.filterString]);
+	}, [
+		context.sortByFavorites,
+		context.favorites,
+		context.filterString,
+		context.typeFilter,
+	]);
 
 	// Each time the favorites array changes, save the array to localStorage to
 	// keep the favorites stored even though the user refreshes the page

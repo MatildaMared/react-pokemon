@@ -7,7 +7,7 @@ export const PokemonProvider = ({ children }) => {
 	const [context, setContext] = useState({
 		pokemon: pokemon.slice(0, 151),
 		filteredPokemon: pokemon.slice(0, 151),
-		favorites: [],
+		favorites: JSON.parse(localStorage.getItem("favorites")) || [],
 		sortByFavorites: false,
 		filterString: "",
 		generations: [
@@ -136,6 +136,11 @@ export const PokemonProvider = ({ children }) => {
 			});
 		}
 	}, [context.sortByFavorites, context.favorites, context.filterString]);
+
+	useEffect(() => {
+		localStorage.removeItem("favorites");
+		localStorage.setItem("favorites", JSON.stringify(context.favorites));
+	}, [context.favorites]);
 
 	const value = { context, updateContext };
 

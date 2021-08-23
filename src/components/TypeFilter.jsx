@@ -56,7 +56,6 @@ function TypeFilter() {
 	};
 
 	useEffect(() => {
-		console.log(typeFilter);
 		if (typeFilter.length === 0) {
 			setTypeString("Show all types");
 		} else if (typeFilter.length === 1) {

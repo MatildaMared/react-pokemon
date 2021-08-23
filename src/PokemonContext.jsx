@@ -96,140 +96,87 @@ export const PokemonProvider = ({ children }) => {
 		}
 	}, [context.activeGeneration]);
 
+	function sortByType(pokemonArr) {
+		return pokemonArr.filter((character) => {
+			const upperCaseArr = character.type.map((type) => type.toUpperCase());
+			return upperCaseArr.some((val) => context.typeFilter.includes(val));
+		});
+	}
+
+	function sortByString(pokemonArr) {
+		return pokemonArr.filter((character) => {
+			return character.name
+				.toLowerCase()
+				.includes(context.filterString.toLowerCase());
+		});
+	}
+
+	function sortByFavorites(pokemonArr) {
+		return pokemonArr.filter((character) => {
+			return context.favorites.includes(character.id.toString());
+		});
+	}
+
 	useEffect(() => {
-		// If sortByFavorites is false, filterString length is 0 but
-		// typeFilter is not empty, sort filteredPokemon by typeFilter
-		// only
+		let newFilteredPokemon = [];
+		// Sort based on type only
 		if (
 			!context.sortByFavorites &&
 			context.filterString.length === 0 &&
 			context.typeFilter.length > 0
 		) {
-			const newFiltered = context.pokemon.filter((character) => {
-				const upperCaseArr = character.type.map((type) => type.toUpperCase());
-				console.log(upperCaseArr);
-				return upperCaseArr.some((val) => context.typeFilter.includes(val));
-			});
-			updateContext({
-				filteredPokemon: newFiltered,
-			});
-			// If sortByFavorites is true, filterString length is 0 and typeFilter
-			// is not empty, sort filteredPokemon by both typeFilter and
-			// favorites
+			newFilteredPokemon = sortByType(context.pokemon);
+			// Sort based on type and favorites
 		} else if (
 			context.sortByFavorites &&
 			context.filterString.length === 0 &&
 			context.typeFilter.length > 0
 		) {
-			const newFiltered = context.pokemon.filter((character) => {
-				const upperCaseArr = character.type.map((type) => type.toUpperCase());
-				console.log(upperCaseArr);
-				return upperCaseArr.some((val) => context.typeFilter.includes(val));
-			});
-			updateContext({
-				filteredPokemon: newFiltered.filter((character) => {
-					return context.favorites.includes(character.id.toString());
-				}),
-			});
-			// If sortByFavorites is false, but filterString length is more
-			// than 0 and typeFilter length is more than 0, sort filteredPokemon
-			// based on typeFilter and filterString
+			newFilteredPokemon = sortByFavorites(sortByType(context.pokemon));
+			// Sort based on type and filterString
 		} else if (
 			!context.sortByFavorites &&
 			context.filterString.length > 0 &&
 			context.typeFilter.length > 0
 		) {
-			let newFiltered = context.pokemon.filter((character) => {
-				const upperCaseArr = character.type.map((type) => type.toUpperCase());
-				console.log(upperCaseArr);
-				return upperCaseArr.some((val) => context.typeFilter.includes(val));
-			});
-			updateContext({
-				filteredPokemon: newFiltered.filter((character) => {
-					return character.name
-						.toLowerCase()
-						.includes(context.filterString.toLowerCase());
-				}),
-			});
-			// If sortByFavorites is true, filterString length is more than 0
-			// and typeFilter length is more than 0, sort filteredPokemon
-			// based on all three
+			newFilteredPokemon = sortByString(sortByType(context.pokemon));
+			// Sort based on type, favorites and filterString
 		} else if (
 			context.sortByFavorites &&
 			context.filterString.length > 0 &&
 			context.typeFilter.length > 0
 		) {
-			let newFiltered = context.pokemon.filter((character) => {
-				const upperCaseArr = character.type.map((type) => type.toUpperCase());
-				console.log(upperCaseArr);
-				return upperCaseArr.some((val) => context.typeFilter.includes(val));
-			});
-			newFiltered = newFiltered.filter((character) => {
-				return character.name
-					.toLowerCase()
-					.includes(context.filterString.toLowerCase());
-			});
-			updateContext({
-				filteredPokemon: newFiltered.filter((character) => {
-					return character.name
-						.toLowerCase()
-						.includes(context.filterString.toLowerCase());
-				}),
-			});
-			// If sortByFavorites is false, typeFilter length is 0,
-			// and filterString length is more than 0,
-			// sort filteredPokemon array by the filterString only
+			newFilteredPokemon = sortByFavorites(
+				sortByType(sortByString(context.pokemon))
+			);
+			// Sort based on filterString
 		} else if (
 			!context.sortByFavorites &&
 			context.filterString.length > 0 &&
 			context.typeFilter.length === 0
 		) {
-			updateContext({
-				filteredPokemon: context.pokemon.filter((character) => {
-					return character.name
-						.toLowerCase()
-						.includes(context.filterString.toLowerCase());
-				}),
-			});
-			// If sortByFavorites is true, typeFilter length is 0
-			// and length of filterString is 0,
-			// sort filteredPokemon array only based on user favorites
+			newFilteredPokemon = sortByString(context.pokemon);
+			// Sort based on favorites
 		} else if (
 			context.sortByFavorites &&
 			context.filterString.length === 0 &&
 			context.typeFilter.length === 0
 		) {
-			updateContext({
-				filteredPokemon: context.pokemon.filter((character) => {
-					return context.favorites.includes(character.id.toString());
-				}),
-			});
-			// If sortByFavorites is true, typeFilter length is 0
-			// and the length of filterString is more than 0,
-			// sort filteredPokemon array based on user favorites and the filterString
+			newFilteredPokemon = sortByFavorites(context.pokemon);
+			// Sort based on filterString and favorites
 		} else if (
 			context.sortByFavorites &&
 			context.filterString.length > 0 &&
 			context.typeFilter === 0
 		) {
-			let newFilteredPokemon = context.pokemon.filter((character) => {
-				return (
-					character.name
-						.toLowerCase()
-						.includes(context.filterString.toLowerCase()) &&
-					context.favorites.includes(character.id.toString())
-				);
-			});
-			updateContext({
-				filteredPokemon: newFilteredPokemon,
-			});
-			// If sortByFavorites is false and the filterString length is equal to zero,
-			// set the filteredPokemon array equal to the original pokemon array
+			newFilteredPokemon = sortByFavorites(sortByString(context.pokemon));
+			// Set array equal to original pokemon array
 		} else {
-			updateContext({
-				filteredPokemon: context.pokemon,
-			});
+			newFilteredPokemon = context.pokemon;
 		}
+		updateContext({
+			filteredPokemon: newFilteredPokemon,
+		});
 	}, [
 		context.sortByFavorites,
 		context.favorites,

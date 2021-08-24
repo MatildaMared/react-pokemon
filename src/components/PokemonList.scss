@@ -1,5 +1,14 @@
 .pokemon-list {
-	max-width: 1400px;
+	width: 100%;
+
+	@media(min-width: 1200px) {
+		width: 1100px;
+	}
+
+	@media(min-width: 1400px) {
+		width: 1300px;
+	}
+
 
 	@media (min-width: 800px) {
 		display: grid;

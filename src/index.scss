@@ -2,6 +2,11 @@
 
 html {
 	scroll-behavior: smooth;
+	font-size: 100%;
+
+	@media (max-width: 500px) {
+		font-size: 72.5%;
+	}
 }
 
 body {
@@ -110,7 +115,6 @@ video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
 	vertical-align: baseline;
 	box-sizing: border-box;
 }

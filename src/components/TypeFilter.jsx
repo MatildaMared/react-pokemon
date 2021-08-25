@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import "./TypeFilter.scss";
 
 import { PokemonContext } from "../PokemonContext";
@@ -28,11 +28,18 @@ function TypeFilter() {
 		"Fairy",
 	];
 	const [typeString, setTypeString] = useState("Show all types");
+	const dropdownRef = useRef();
 
 	const toggleDropdown = () => {
 		setShowDropdown((oldVal) => {
 			return !oldVal;
 		});
+	};
+
+	const handleClickOutside = (e) => {
+		if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+			setShowDropdown(false);
+		}
 	};
 
 	const onTypeClickHandler = (e) => {
@@ -54,6 +61,16 @@ function TypeFilter() {
 		setTypeFilter([]);
 		setTypeString("Show all types");
 	};
+
+	useEffect(() => {
+		if (showDropdown) {
+			document.addEventListener("click", handleClickOutside);
+		}
+
+		return () => {
+			document.removeEventListener("click", handleClickOutside);
+		};
+	}, [showDropdown]);
 
 	useEffect(() => {
 		if (typeFilter.length === 0) {
@@ -79,6 +96,7 @@ function TypeFilter() {
 				<span className="type-filter__types">{typeString}</span>
 			</div>
 			<ul
+				ref={dropdownRef}
 				className={
 					showDropdown
 						? "type-filter__list"
